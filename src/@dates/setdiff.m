@@ -1,24 +1,40 @@
-function q = setdiff(o,p) % --*-- Unitary tests --*--
+    function [C, varargout] = setdiff(A,B) % --*-- Unitary tests --*--
 
-% Overloads setdiff function for dates objects.
-%
-% INPUTS 
-% - o [dates]
-% - p [dates]
-%
-% OUTPUTS 
-% - q [dates]
-%
-% See also pop, remove.
+%@info:
+%! @deftypefn {Function File} {@var{C} =} setdiff (@var{A},@var{B})
+%! @anchor{@dates/intersect}
+%! @sp 1
+%! C of B and A.
+%! if A and B are not disjoints.
+%! @sp 2
+%! @strong{Inputs}
+%! @sp 1
+%! @table @ @var
+%! @item A
+%! @ref{dates} object.
+%! @item B
+%! @ref{dates} object.
+%! @end table
+%! @sp 2
+%! @strong{Outputs}
+%! @sp 1
+%! @table @ @var
+%! @item C
+%! @ref{dates} object.
+%! @end table
+%! @end deftypefn
+%@eod:
 
-% Copyright (C) 2013-2015 Dynare Team
+% Copyright (C) 2013 Dynare Team
 %
-% This code is free software: you can redistribute it and/or modify
+% This file is part of Dynare.
+%
+% Dynare is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
 % the Free Software Foundation, either version 3 of the License, or
 % (at your option) any later version.
 %
-% Dynare dates submodule is distributed in the hope that it will be useful,
+% Dynare is distributed in the hope that it will be useful,
 % but WITHOUT ANY WARRANTY; without even the implied warranty of
 % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 % GNU General Public License for more details.
@@ -26,31 +42,51 @@ function q = setdiff(o,p) % --*-- Unitary tests --*--
 % You should have received a copy of the GNU General Public License
 % along with Dynare.  If not, see <http://www.gnu.org/licenses/>.
 
-if ~isa(o,'dates') || ~isa(o,'dates')
-    error('dates;setdiff','All input arguments must be dates objects!')
+if ~isa(A,'dates') || ~isa(B,'dates')
+    error(['dates::plus: Input arguments ''' inputname(1) ''' and ''' inputname(2) ''' must be dates objects!'])
 end
 
-if ~isequal(o.freq,p.freq)
-    error('dates;setdiff','All input arguments must have common frequency!')
+if eq(A,B)
+    C = A;
+		if nargout > 1
+		  varargout(1) = {1:length(A)};
+		end
+    return
 end
 
-if o==p
-    q = dates(o.freq);
+if ~isequal(A.freq,B.freq)
+    C = dates();
+		if nargout > 1
+		  varargout(1) = [];
+		end
     return
 end
 
 if isoctave || matlab_ver_less_than('8.1.0')
-    time = setdiff(o.time,p.time,'rows');
+    if nargout > 1
+		  [time, i_A] = setdiff(A.time,B.time,'rows');
+			varargout(1) = {i_A};
+		else
+		  time = setdiff(A.time,B.time,'rows');
+		end
 else
-    time = setdiff(o.time,p.time,'rows','legacy');
+    if nargout > 1
+		  [time, i_A] = setdiff(A.time,B.time,'rows','legacy');
+			varargout(1) = {i_A};
+		else
+		  time = setdiff(A.time,B.time,'rows','legacy');
+		end
+    
 end
 
-q = dates(o.freq);
+C = dates();
 if isempty(time)
     return
 end
 
-q.time = time;
+C.freq = A.freq;
+C.time = time;
+C.ndat = rows(time); 	
 
 %@test:1
 %$ % Define some dates objects
