@@ -24,6 +24,11 @@ function l = eq(varargin) % --*-- Unitary tests --*--
 % You should have received a copy of the GNU General Public License
 % along with Dynare.  If not, see <http://www.gnu.org/licenses/>.
 
+if varargin{1}.ndat>1 && varargin{2}.ndat>1 && ~isequal(varargin{1}.ndat, varargin{2}.ndat)
+    l = false;
+    return
+end
+
 [o, p] = comparison_arg_checks(varargin{:});
 
 if isequal(o.ndat(), p.ndat())

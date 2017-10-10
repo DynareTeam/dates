@@ -41,7 +41,9 @@ end
 
 if ~isequal(varargin{1}.ndat, varargin{2}.ndat) && ~(isequal(varargin{1}.ndat,1) || isequal(varargin{2}.ndat,1))
     s = dbstack;
-    error(sprintf('dates:%s:ArgCheck',s(2).name),'Dimensions are not consistent!')
+    if ~isequal(s(2).name, 'eq')
+        error(sprintf('dates:%s:ArgCheck',s(2).name),'Dimensions are not consistent!')
+    end
 end
 
 o = varargin{1};
