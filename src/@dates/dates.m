@@ -21,7 +21,7 @@ properties
 end
 
 methods
-        function o = dates(varargin)
+    function o = dates(varargin)
         if ~nargin
             % Returns empty dates object.
             o.freq = NaN(0);
@@ -92,7 +92,7 @@ methods
                 end
             else
                 if isequal(size(varargin{2},2), 2)
-                    if all(isint(varargin{2}(:,1))) && all(isint(varargin{2}(:,1)))
+                    if all(isint(varargin{2}(:,1))) && all(isint(varargin{2}(:,2)))
                         if all(varargin{2}(:,2)>=1) && all(varargin{2}(:,2)<=o.freq)
                             o.time = [varargin{2}(:,1), varargin{2}(:,2)];
                         else
@@ -108,8 +108,8 @@ methods
             return
         end
         error('dates:ArgCheck','You should first read the manual!')
-        end % dates constructor.
-            % Other methods
+    end % dates constructor.
+        % Other methods
     p = sort(o);
     o = sort_(o);
     p = unique(o);
