@@ -30,7 +30,7 @@ if isyearly(a)
     return
 end
 
-if isquaterly(a)
+if isquarterly(a)
     year = 1:(regexp(a,'[Qq]')-1);
     date.freq = 4;
     date.time = write_time_field(a, year);

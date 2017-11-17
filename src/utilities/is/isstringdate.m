@@ -26,7 +26,7 @@ function b = isstringdate(str)  % --*-- Unitary tests --*--
 % along with Dynare.  If not, see <http://www.gnu.org/licenses/>.
 
 if ischar(str)
-    b = isquaterly(str) || isyearly(str) || ismonthly(str) || isweekly(str);
+    b = isquarterly(str) || isyearly(str) || ismonthly(str) || isweekly(str);
 else
     b = false;
 end

@@ -1,12 +1,12 @@
-function b = isquaterly(str)  % --*-- Unitary tests --*--
+function b = isquarterly(str)  % --*-- Unitary tests --*--
 
-% Tests if the input can be interpreted as a quaterly date.
+% Tests if the input can be interpreted as a quarterly date.
 %
 % INPUTS
 %  o str     string.
 %
 % OUTPUTS
-%  o b       integer scalar, equal to 1 if str can be interpreted as a quaterly date or 0 otherwise.
+%  o b       integer scalar, equal to 1 if str can be interpreted as a quarterly date or 0 otherwise.
 
 % Copyright (C) 2012-2017 Dynare Team
 %
@@ -45,12 +45,12 @@ end
 %$ date_6 = '1950Y';
 %$ date_7 = '1950m24';
 %$
-%$ t(1) = dassert(isquaterly(date_1),true);
-%$ t(2) = dassert(isquaterly(date_2),true);
-%$ t(3) = dassert(isquaterly(date_3),true);
-%$ t(4) = dassert(isquaterly(date_4),false);
-%$ t(5) = dassert(isquaterly(date_5),false);
-%$ t(6) = dassert(isquaterly(date_6),false);
-%$ t(7) = dassert(isquaterly(date_7),false);
+%$ t(1) = dassert(isquarterly(date_1),true);
+%$ t(2) = dassert(isquarterly(date_2),true);
+%$ t(3) = dassert(isquarterly(date_3),true);
+%$ t(4) = dassert(isquarterly(date_4),false);
+%$ t(5) = dassert(isquarterly(date_5),false);
+%$ t(6) = dassert(isquarterly(date_6),false);
+%$ t(7) = dassert(isquarterly(date_7),false);
 %$ T = all(t);
 %@eof:1
