@@ -107,7 +107,7 @@ methods
             end
             return
         end
-        error('dates:ArgCheck','You should first read the manual!')
+        error('dates:ArgCheck','The input cannot be interpreted as a date. You should first read the manual!')
     end % dates constructor.
         % Other methods
     p = sort(o);
