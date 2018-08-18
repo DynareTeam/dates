@@ -64,13 +64,16 @@ function dd = dates(varargin) % --*-- Unitary tests --*--
 
 % Initialization.
 if nargin>0 && ischar(varargin{1}) && isequal(varargin{1},'initialize')
-    dd = struct('ndat', 0, 'freq', NaN(0), 'time', NaN(0,2));
-    dd = class(dd,'dates');
-    assignin('base','emptydatesobject',dd);
     return
 end
 
-dd = evalin('base','emptydatesobject');
+try
+    dd = evalin('base','emptydatesobject');
+catch
+    dd = struct('ndat', 0, 'freq', NaN(0), 'time', NaN(0,2));
+    dd = class(dd,'dates');
+    assignin('base','emptydatesobject',dd);
+end
 
 if isequal(nargin, 0)
     % Return an empty dates obect
@@ -103,6 +106,13 @@ if isequal(nargin,1) && isfreq(varargin{1})
     else
         dd.freq = varargin{1};
     end
+    return
+end
+
+if isequal(nargin,1) && isstruct(varargin{1})
+    dd.freq = varargin{1}.freq;
+    dd.time = varargin{1}.time;
+    dd.ndat = varargin{1}.ndat;
     return
 end
 
